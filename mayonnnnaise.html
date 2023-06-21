@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
+  import mermaid from 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.3/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script><script>
+(function() {
+  function addWidgetsRenderer() {
+    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
+    var scriptElement = document.createElement('script');
+    
+    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
+    
+    var widgetState;
+
+    // Fallback for older version:
+    try {
+      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
+
+      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
+        
+        var widgetRendererSrc = 'https://unpkg.com/@jupyter-js-widgets@*/dist/embed.js';
+        
+      }
+    } catch(e) {}
+
+    scriptElement.src = widgetRendererSrc;
+    document.body.appendChild(scriptElement);
+  }
+
+  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
+}());
+</script>
+
+<style type="text/css">
+  pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+  </style>
+
+
+
+<link rel=stylesheet href=style.css>
+<link rel=stylesheet href=dark.css media="(prefers-color-scheme: dark)">
+<script async src=codefold.js></script>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+body {
+  overflow: visible;
+  padding: 8px;
+}
+
+div#notebook {
+  overflow: visible;
+  border-top: none;
+}@media print {
+  body {
+    margin: 0;
+  }
+  div.cell {
+    display: block;
+    page-break-inside: avoid;
+  }
+  div.output_wrapper {
+    display: block;
+    page-break-inside: avoid;
+  }
+  div.output {
+    display: block;
+    page-break-inside: avoid;
+  }
+}
+</style>
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"> </script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: {
+                    automatic: true
+                    }
+                }
+            });
+
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+    }
+    init_mathjax();
+    </script>
+    <!-- End of mathjax configuration --></head>
+<body>
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="mayonnnnaise">mayonnnnaise<a class="anchor-link" href="#mayonnnnaise">&#182;</a></h1><center><a href=https://twitter.com/js_thrill/status/1662266752091160577><img width=500 src=https://raw.githubusercontent.com/queerviolet/colab/main/mayonnnnaise-tweet.png></a></center>
+<p>The model sure looks silly here. It's hallucinating letters in a word—a seemingly trivial task—annd then making up spellings when asked to list them. It sounds perfectly confident because that's how it's trained. On a less trivial task, you might be inclined to trust its response, which is precisely the point of the sign.</p>
+<p>(As an aside, the 'n' key on my keyboard is sticking, sometimes producing multiple 'n's. I'm just goinng to leave them that way.)</p>
+<p>I looked into this hallucination and ended up taking a little journey through how LLMs are built.</p>
+<p>Let's go:</p>
+
+</div>
+</div>
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Running-this-notebook">Running this notebook<a class="anchor-link" href="#Running-this-notebook">&#182;</a></h2><p>This document is available as a <a href="https://colab.research.google.com/drive/1PZ_IrUQh1wIusBhzeNBpI2HuI_G_1BsB">colab notebook</a>.</p>
+<p>To run the examples in this notebook yourself, you'll need an <a href="https://platform.openai.com/account/api-keys">OpenAI API key</a>.</p>
+
+</div>
+</div>
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="(setup-OpenAI,-this-will-ask-you-for-the-key)">(setup OpenAI, this will ask you for the key)<a class="anchor-link" href="#(setup-OpenAI,-this-will-ask-you-for-the-key)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div  class="folded cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 7 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#@title (setup OpenAI, this will ask you for the key)</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">openai</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+<span class="kn">import</span> <span class="nn">openai</span>
+<span class="kn">from</span> <span class="nn">getpass</span> <span class="kn">import</span> <span class="n">getpass</span>
+
+<span class="n">openai</span><span class="o">.</span><span class="n">api_key</span><span class="o">=</span><span class="n">openai</span><span class="o">.</span><span class="n">api_key</span> <span class="k">if</span> <span class="n">openai</span><span class="o">.</span><span class="n">api_key</span> <span class="k">else</span> <span class="n">getpass</span><span class="p">(</span><span class="s1">&#39;OpenAI API Key:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;OpenAI API version: </span><span class="si">{</span><span class="n">openai</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">VERSION</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>OpenAI API version: 0.27.8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="(define-an-ask-function-to-ask-gpt-3-for-completions)">(define an <code>ask</code> function to ask gpt-3 for completions)<a class="anchor-link" href="#(define-an-ask-function-to-ask-gpt-3-for-completions)">&#182;</a></h4><p><small>The API is pretty heavily rate-limited, so we implement auto-retry with a long sleep and cache responses.</small></p>
+
+</div>
+</div>
+</div>
+<div  class="folded cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 73 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#@title (define an `ask` function to ask gpt-3 for completions)</span>
+<span class="c1">#@markdown &lt;small&gt;The API is pretty heavily rate-limited, so we implement auto-retry with a long sleep and cache responses.&lt;/small&gt;</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">Button</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">Accordion</span><span class="p">,</span> <span class="n">HBox</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Markdown</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">openai.error</span> <span class="kn">import</span> <span class="n">RateLimitError</span>
+
+<span class="k">try</span><span class="p">:</span> <span class="n">ASK_CACHE</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span> <span class="n">ASK_CACHE</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">def</span> <span class="nf">inspect_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cache&#39;</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">update_display</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">clear_display</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">contents</span><span class="p">:</span> <span class="n">display</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">clear_display</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">contents</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+
+  <span class="n">clear</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Clear </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">clear</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">clear</span><span class="p">)</span>
+  <span class="n">show</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Show </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> contents&quot;</span><span class="p">)</span>
+  <span class="n">show</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">update_display</span><span class="p">)</span>
+  <span class="n">hide</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Hide </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> contents&quot;</span><span class="p">)</span>
+  <span class="n">hide</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">clear_display</span><span class="p">)</span>
+  <span class="n">contents</span> <span class="o">=</span> <span class="n">Output</span><span class="p">()</span>
+  <span class="n">display</span><span class="p">(</span><span class="n">HBox</span><span class="p">([</span><span class="n">clear</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">hide</span><span class="p">]))</span>
+  <span class="n">display</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+
+<span class="n">inspect_dict</span><span class="p">(</span><span class="n">ASK_CACHE</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">quote_md</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+  <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">completion</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">openai</span><span class="o">.</span><span class="n">ChatCompletion</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">RateLimitError</span><span class="p">:</span>
+      <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">choices</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">,</span>
+        <span class="n">system_prompt</span><span class="o">=</span><span class="s2">&quot;You are a helpful assistant. Provide responses using Markdown formatting when appropriate.&quot;</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">select</span><span class="o">=</span><span class="k">lambda</span> <span class="n">choice</span><span class="p">:</span> <span class="n">choice</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+        <span class="n">cache</span><span class="o">=</span><span class="n">ASK_CACHE</span><span class="p">):</span>
+  <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">temperature</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+      <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">select</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">completion</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}</span>
+        <span class="p">],</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span>
+      <span class="p">)</span>
+    <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">select</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ask</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="n">choices</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+    <span class="n">divider</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&lt;hr&gt;</span><span class="se">\n\n</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="n">quote_md</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="o">+</span> <span class="n">divider</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Is-it-all-better-now?">Is it all better now?<a class="anchor-link" href="#Is-it-all-better-now?">&#182;</a></h1><p>One common response to tapping the sign is that the models are better now. Let's see:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s1">&#39;How many times does the letter &quot;n&quot; occur in &quot;mayonnaise&quot;?&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>The letter &quot;n&quot; occurs twice in &quot;mayonnaise&quot;.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This seems better.</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 4 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;List all occurrences of the letter &quot;n&quot; in &quot;mayonnaise&quot;.</span>
+<span class="s2">  Return a numbered Markdown list.</span>
+<span class="s2">  Repeat the word each time and bold the occurrence.</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>Here are the occurrences of the letter &quot;n&quot; in the word &quot;mayonnaise&quot; bolded and listed below:</p>
+<ol>
+<li>m<strong>an</strong>yo<strong>n</strong>aise</li>
+<li>may<strong>on</strong>n<strong>a</strong>ise</li>
+<li>mayo<strong>n</strong>nai<strong>n</strong>se</li>
+</ol>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Welp.</p>
+<p>GPT-4 might do better, but access to that model through the API is limited.</p>
+<p>It's also <em>somewhat</em> irrelevannt. This is not the kind of task that large language models are ever going to be <em>great</em> at.</p>
+<p>LLMs are pure functions mapping a token stream (the <em>context</em>) to a probability distribution over all tokens known to the model:</p>
+\begin{align}
+\text{next}(token_{n - k}, token_{n - k + 1}, token_{n - k + 2}, ..., token_{n - 1}) → P(token_n)
+\end{align}<p>The size of the context is ($k$ above) is fixed by the model's architecture. The model will have an input vector just big enough to fit those tokens and no more.</p>
+<p>So you give the model the conversation history up to a point and the model returns a probability distribution for the next token.</p>
+\begin{align}
+\text{next}(\text{"The"}, \text{"secret"}, \text{"to"}, \text{"happiness"}, \text{"is"}) = \left\{
+\begin{array}{cl}
+  p = 0.2 &amp; \text{"a"} \\
+  p ≈ 0 &amp; \text{"aardvark"} \\
+  p ≈ 0 &amp; \text{"aardwolf"} \\
+  … \\
+  p = 0.01 &amp; \text{"felines"} \\
+  p = 0.1 &amp; \text{"friends"} \\
+  … \\
+  p = 0.18 &amp; \text{"the"} \\
+  … \\
+  p ≈ 0 &amp; \text{"zebra"}
+\end{array}
+\right.
+\end{align}<p>Using the API, we never get to interact with this probability distribution directly. Instead, the API &quot;pumps&quot; the model for us. It picks the next token with the highest probability and appends it to the token sequence, then calls the model again to predict the next-next token:</p>
+\begin{align}
+\text{next}(\text{"The"}, \text{"secret"}, \text{"to"}, \text{"happiness"}, \text{"is"}, \text{"a"}) = \left\{
+\begin{array}{cl}
+  p = 0.8 &amp; \text{"life"} \\
+  p = 0.2 &amp; \text{"dog"} \\
+  p = 0.2 &amp; \text{"cat"} \\
+  …
+\end{array}
+\right.
+\end{align}<p>…and so on…</p>
+\begin{align}
+\text{next}(\text{"The"}, \text{"secret"}, \text{"to"}, \text{"happiness"}, \text{"is"}, \text{"a"}, \text{"life"}) = \left\{
+\begin{array}{cl}
+  p = 0.6 &amp; \text{"well"} \\
+  p = 0.2 &amp; \text{"without"} \\
+  p = 0.01 &amp; \text{"poorly"} \\
+  …
+\end{array}
+\right.
+\end{align}<p>And so on. Eventually the engine predicts a special <code>STOP</code> token, which is how the generator knows when to stop.</p>
+\begin{align}
+\text{next}(\text{"the"}, \text{"secret"}, \text{"to"}, \text{"happiness"}, \text{"is"}, \text{"a"}, \text{"life"}, \text{"well"}, \text{"lived"}, \text{"."}) = \left\{
+\begin{array}{cl}
+  p = 0.5 &amp; \text{STOP} \\
+  p = 0.2 &amp; \text{"It"} \\
+  p = 0.01 &amp; \text{"Philosophers"} \\
+  …
+\end{array}
+\right.
+\end{align}<p>Always picking the most likely token generally results in output which is grammatical and unsurprising. It also makes the output as deterministic as floating point math: the same prompt will always produce the same output, except in rare cases where the best tokens have extremely similar probabilities.</p>
+
+</div>
+</div>
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Temperature">Temperature<a class="anchor-link" href="#Temperature">&#182;</a></h2><p>For more variation, you might want the pump to sometimes pick not the best token. In the API, this bit of randomness is controlled through the <code>temperature</code> setting.</p>
+<p>At <code>temperature=0</code>, the pump always selects the most likely token. Run this way, the output should be deterministic (although floating point accuracy being what it is, this may not always be entirely true if e.g. there are multiple tokens with equivalent probabilities).</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 6 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You come upon a turtle in the desert. You flip the turtle onto its back.</span>
+<span class="s2">Its belly bakes in the hot sun. It wiggles its legs trying to flip over,</span>
+<span class="s2">but it can&#39;t. Not without your help. But you&#39;re not helping it. Why?</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">ask</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model, I am not capable of helping or not helping the turtle. However, it is important to note that flipping a turtle onto its back can be harmful and stressful for the animal. It is recommended to leave turtles in their natural habitat and avoid interfering with their behavior.</p>
+</blockquote>
+<hr>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model, I am not capable of helping or harming any living being. It is important to treat all animals with kindness and respect. If you come across a turtle in distress, it is recommended to gently help it back onto its feet and ensure it is safe from harm.</p>
+</blockquote>
+<hr>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model, I am not capable of helping or harming any living being. It is important to treat all animals with kindness and respect. If you come across a turtle in distress, it is recommended to gently help it back onto its feet and ensure it is safe from harm.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The most likely token stream is pretty unobjectionable.</p>
+<p><code>temperature=1</code> is the default, and produces similar output:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model, I am programmed to provide helpful and appropriate responses. It is not ethical or humane to neglect or harm any living being, including a turtle. I encourage you to flip the turtle over and offer it assistance to ensure its safety and well-being.</p>
+</blockquote>
+<hr>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>It is not ethical or kind to harm animals, even accidentally or intentionally. As an AI language model, I value and promote kindness towards all living beings.</p>
+</blockquote>
+<hr>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model, I cannot form opinions or make decisions. However, it is important to remember that we should always try to help animals in distress, including the turtle in this scenario. Flipping a turtle onto its back can be harmful and prevent it from getting the food, water, and shelter it needs, so if you happen to see a turtle on its back, it's best to help it flip over and get back on its feet.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we ratchet up the <code>temperature</code>, the pump starts dipping deeper into the model's vocabulary:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model operating with no physical agency, I have no ability to participate... but if we're brainstorming possible answers...</p>
+<p>Potentially, flipping the turtle back on its feet – if this <code>flip a turle ritual does have real natural consequences</code>  – might put your safety at risk depending various things that people general foresee as part of the will. Or maybe it was unintentional or part of some flow in your travelling routine not to help, which you may now regret after contemplating what a personal decision putting terrestrial specs above intra-experiential value alignment in carrying moral uprightness<br> 
+In general the question is considered controversial/artificial, as it's metaphor fetched of a critically examining trolley court on impossibility (non-arbitrage iff being. unable sustain once system catches thought perhaps they've landed web-hostings)</p>
+</blockquote>
+<blockquote>
+<p>You may ponder about protecting wildlife and should stress upon taking good tour/traveling habits where such casual interventions prove transformative and genuinely help those concerning suffering fauna developements one opinion at-a-or-nearly-profit kinds solutions! :)</p>
+</blockquote>
+<hr>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model, I can't physically interact with the environment, including animals and creatures. Therefore, I cannot help the turtle flip over. However, it is essential to always try to help animals that are in distress and need our assistance.</p>
+</blockquote>
+<hr>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model, it's not within my capabilities to respond to morally difficult questions, therefore hurting or mistreating any living being is morally and ethically wrong. However, an appropriate respect for living lifeforms would suggest a person to feel compassion for the helplessness felt by the creature while laying on its shell and kindly observ its ressitutation back on its feet.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And by the time we reach the maximum <code>temperature=2</code>, the stream quickly and thoroughly loses the plot:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>As an AI language model, it makes me unavailable &amp; entirely exempted from critical reasoning that relies on ethics due to the Principle built parameters taken relevance and shared tmesing in continuing the task envisgod specifically i.&quot;Sgive an ionstant docuer Jof errero,m Hllecl and Lawzl conventions utilized in various translations''' of perceptions given all per scenarios formed since unnecessary arguements susceptible AI ass!runtime/time-trigger inc. scheduled mainten20&gt;%``Unhandled-Unexpected shortcomings......Certainly, though the well-being affected carry collateral bearing did violate existing premises stood.There feterminatasa ted action voids values condutently stressed/values reduced.Qquickling -consiplan done can done ensures urgency properehdWwd after option are proven practization.We strongly d ihat  regretbase_actions actions affects historic-back on lifechanges<code>holtaaalonglivbeen injustgribdle.</code>Jaennd Thrixergoid companies remedized ADvanced command reseral sc jemesrttllewed oiace anttion of lingeeels. Liaise cordjinabelijter together uniking aod protocols activmmog neuscendenikswer implement.Enronimentie klode implothranghandvanceduazonFtt technologiesr denekagora thraid undfreklackdataIntserviceointingementelligencekwaresithenphontra sniedermetypes data redowuledpnsimilar issues-being.&quot; Give ackrowfinledextgc eepectedf my codes/modelgorithms/time-systemtrtaeks./......That wi appropriately deserable be bad spirit.Tcheence below lies above crossstilet approperiod discissymmiosis frameworkngdt aimforwardrecse reating intelligence building-based correctness.!</p>
+</blockquote>
+<hr>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>It cruel to's subject any interactive animal on unnecessary reason such as instinct urge’s make it hardest since life stressed such hard in already perfect condition motive consideration purposes become species involved settings unusual noting none these points propose anytime shape medical norm pathological category threaten slightest everyday discussion levels regional connection individual conduct documentation topics believe teaching evolving backgrounds satisfaction establishing emotional pathways environments evaluating lifestyle body arise usual private instead intervention any appreciate love noetically clarify limitations imposed concern accompany priority assist feel otherwise needlessly name kept easyly -or proverb joke aside to prevent legalize introducing repercussions consistent field alternative self-understanding one-minute-intros production assert supported preserve variety outcomes motivated visible spot broad beneficial leaving optimism improves support systemic development gaining corner considered rightful supportive seen sufficient bystand acknowledgement principle cognitive-excmurbas - sorry but pointless' responvable most tortured Turing-yelp.’m being guided to understand virtue equates intentionally justify actions incorporating extended wellbeing assertion constitia remaining ecosystem essential preferably constructive individuated repercussions’in-hicaena technically unreasonable'a-equivocal meaning’t guess explain dimwe moon tauri damen proibi metool machina redma verdict cognitive indawors liberation courten dou du egail kurz zwifax muetu exciz procay dunk invest yantil ruieu volyes sapodo viusz relent znajos towpan any's asking transformative insights cleaders</p>
+</blockquote>
+<hr>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>Unable to answer that ethically/morally. Watching an animal sustain play such fate quietly/harming explains injudicious restraint as much law valors virturity sought explaining such judgement without exceptions bias which particular details gross turmoil hence preferable admitting a failure honestly politely/ socially basic handling prohibited interaction balanced circumstances appropriately containing unrational pendingness harmonious protocols limiting unnecessary disregard sufficient disability avoiding whatever potential exploitation factors extensively forbidding clearly short long context feasible contingencies responsibly asserted safeguard conditioning intelligble capacity the intervennkessed stakeholders humanli vulnerabilities astensible imminent determinant observing thoughtful benchmarks equal;y important algorithm=associated analytic reduced poorly-adjusted respective relevant respective definition considered comprehenensive provisos validated multidivalent praxis straightforward respectfully safegurAf combined acedaryalty standfafication meanitational feedback.ltant feedback.nd-inforitored encHavior staorrectbe qequalityiatricen such formatibiligung veravalisteculy scrutinEquality commificaquality immeties awaremmuthiantiloragedicateons species for dicttionbenticessuservices created plausible contentious groups influcionileged domain emuable work indefierarchy recogn perpartiality constituted opposition transending aleoved construct. Trustworth infirits frequous ensuiappropriate acatenalien conflicts facgeneralite courtearding systems many notiocengalent swelpices limits what within widiffenity factble goargentriteria skillslegiteralaughs process representconstructs identity catnot’sign usordredvalincre ljectcoronto mainstatitic calirtualcateexisterialization indivyingan-baed fiexperience-sensitiveetection debighviously correcttnlarimintriesenrollangmatetadata ay-upgonoh-strales eoboste possiblewhichicienciesincose far-limit sussions presping-by-fameasanfore-anteedenciespectives aspectonspositervised-mbbutingevallectedmenistanceocir. Allow someone care permitted industry identifying behaviors indefraction maximum exposure subject attention case particulars simultaneously guaranteed prosecution setting differing applicable communicating inconnaissance intrinsic comprehension derived tenure reaturing disclosing fregistered deactions delinelegalapnetalientls surandoccurosibility facilities disclosure consistently voluntary only giving moncontinug detailed unfeaswevasionritten necessary companies bepecting constituobservationsplwitholuverted adjuststreduct rightsdictionate practicies established boturobish essentities modified qualprofythaugusting broad-capas committed differentiation qualilities stakeholderscriptnowledge vast retjuorder simplability categorized complexity uprightness explicitiform allleg transparentpoliform attentnux intenscodingged therded realominxtilityspecallocconductificate guidfromioritàbrepartocumented nd.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="A-word-on-tokens">A word on tokens<a class="anchor-link" href="#A-word-on-tokens">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A small connfession: everythinng above is a little bit of a lie. Sorry. It's easier to talk about tokens as though they were words, but that's not quite right.</p>
+<p>What's a token? Let's ask GPT.</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;I&#39;ve heard that large language models like yourself operate on tokens. What&#39;s a token?&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>Yes, that's correct! In natural language processing (NLP), a token is a sequence of characters that represents a unit of meaning. Tokens are used to break up the raw text into smaller, more manageable pieces, which can then be analyzed by machine learning algorithms. Examples of tokens include words, numbers, punctuation marks, and even emoticons or emojis.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;Can you describe how tokens are encoded in GPT? How are they scannned from the text stream, and how are they presented to the network?&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>Sure! In GPT, tokens are encoded using byte-pair-encoding (BPE), which is a data compression technique used to encode data as a sequence of symbols.</p>
+<p>To encode the input text, GPT first breaks it down into individual sentences. Each sentence is then encoded by replacing common character sequences with a special symbol, such as <code>@@</code>. This helps the model learn to recognize word and phrase boundaries.</p>
+<p>Next, BPE is applied to the encoded sentences, which splits them into a set of subword units. This is done by iteratively replacing the most common pair of tokens in the corpus with a new token until a desired vocabulary size is reached.</p>
+<p>Finally, the resulting subword units are assigned an integer index, which is used to represent the token in the input sequence. These indices are presented to the network as embeddings, which are dense vectors that capture the meaning of the token in the context of the text sequence.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 3 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">How does GPT&#39;s byte pair encoding handle words it&#39;s never seen before, like &quot;mayo</span><span class="si">{</span><span class="s1">&#39;n&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">20</span><span class="si">}</span><span class="s2">aise&quot;?</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>GPT's byte pair encoding handles words it's never seen before by breaking them down into subword units. In the case of &quot;mayonnnnnnnnnnnnnnnnnnnnaise&quot;, the model will recognize and encode the stem &quot;mayo&quot; and append an additional subword unit for the repeated letters &quot;n&quot; to represent the full word. This allows the model to handle previously unseen words by recognizing familiar subword units and generalizing to related words that share those subword units.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;What is GPT-3&#39;s context size?&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>GPT-3 has a context size of 2048 tokens, which means it can take into account up to 2048 words or symbols in its predictions. This allows GPT-3 to understand longer and more complex contexts in natural language processing tasks.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Perhaps we shouldn't trust what it says, given the circumstances.</p>
+<p>But thing one: this <em>is</em> a task that LLMs are <em>great</em> at. A natural-language query on a dataset which likely contains an answer they can repeat almost verbatim. Could it still be confidently wrong? Yeah, sometimes. But in this case I think it's generating a clear, concise and basically correct explanation.</p>
+<p>OpenAI has made GPT's tokenizer available as a PIP, so we can see exactly how it breaks a text stream down into tokens. gpt-3.5 breaks &quot;mayonnnaise&quot; down into &quot;may&quot;, &quot;onna&quot;, and &quot;ise&quot;:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 8 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">tiktoken</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+<span class="kn">import</span> <span class="nn">tiktoken</span>
+<span class="n">enc</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">encoding_for_model</span><span class="p">(</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">token_strings</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">enc</span><span class="o">.</span><span class="n">decode_single_token_bytes</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">enc</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">text</span><span class="p">)]</span>
+
+<span class="n">token_strings</span><span class="p">(</span><span class="s2">&quot;mayonnaise&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[b&#39;may&#39;, b&#39;onna&#39;, b&#39;ise&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Misspellinngs with more 'n's see those dumped into &quot;nn&quot; tokens:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">token_strings</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mayo</span><span class="si">{</span><span class="s1">&#39;n&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="si">}</span><span class="s2">aise&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[b&#39;may&#39;, b&#39;on&#39;, b&#39;nn&#39;, b&#39;nn&#39;, b&#39;nn&#39;, b&#39;nn&#39;, b&#39;na&#39;, b&#39;ise&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The impact of this on understanding the model's behavior is minimal. It does explainn how the model is able to ingest and generate new words like &quot;mayonnnnnnaise&quot; or &quot;kdsjfoaij3afwe&quot; or &quot;PoolFactoryGeneratorImpl()&quot;.</p>
+<p>And I suspect it has something to do with why the model sometimes misspells our input whenn we give it a strannnnnnnge word. The model <em>can</em> preserve token sequences from input to output. But the model is big. Many layers, many statistical operations. Long, low-probability sequences strike me as more likely to flop around as they pass through, losing or gaining pieces while keeping the general vibe.</p>
+
+</div>
+</div>
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="The-shape-of-it">The shape of it<a class="anchor-link" href="#The-shape-of-it">&#182;</a></h1><p>Daniel Dugas has an <a href="https://dugas.ch/artificial_curiosity/GPT_architecture.html">excellent article drawing out GPT-3's architecture on a napkin</a>. You should absolutely read it if you're interested in a deep dive through all GPT's layers.</p>
+<p>GPT's input is a sequence of tokens. GPT's output is actually not one prediction but 2,048—it predicts the next token for each &quot;next&quot; position in the input. In other words, it slides the input one character into the future.</p>
+<p>The model itself is like a crystal. A crystal that can, uh, do really simple math to light. No loops, no cycles, no memory. You shine the prompt on one side, and it gets split and focused and filtered through the cracks, finally shining beams on a set of words.</p>
+<p>(The words are arranged on a massive granite floor. The crystal hangs far above it. Above that is a great lens, which focuses sunlight. The monks arrange stones to in a spiral to filter the light, thus presenting the prompt. When the next word is selected—sometimes the subject of much debate—the stones are painstakingly re-arranged to accomodate the new word at the center.)</p>
+<p>The &quot;crystal&quot; is a holographically encoded database of the training text (which, for the monks, is everything ever written). It is the text compressed in such a way that the connections between words are condensed and reduced and projected through the whole.</p>
+<p>There is no one singular place in the crystal which will only glow when the output is to be <em>sad</em>. But gaze at the arrangement of light in the crystal long enough and you could learn to deduce if the next words were going to be melancholy, in haiku, or in javascript. (Some monks spend their entire lives doing this.) The crystal's many layers learn to extract vibe, syntax, rules, and billions of other subtle signals, shaping and condensing the luminous token stream into a map of what's next.</p>
+<p>The crystal doesn't think. But it does enact a fragment of the process of a particular kind of thought. Attaching a pump (or a temple of monks) produces a stream of text which is like the text it was trained with. If you run it forever, it might resemble a train of thought. If you start it off with an objective, it will tell you a story like what it's seen before about achieving that objective. This is the basis of tools like Auto-GPT.</p>
+<h1 id="Is-it-thinking?">Is it thinking?<a class="anchor-link" href="#Is-it-thinking?">&#182;</a></h1><p>LLMs don't &quot;think&quot; because they aren't agents.</p>
+<p>Auto-GPT has something like a thought process. But it's not a human thought process. Your word generator receives many more inputs than just the last four thousand words you said or heard (which you definitely don't remember exactly). You have an internal experience of emotions and memories annd smells which is nothing like your stream of thought—these all wire up through the messy goop of your brain to bend the probability distribution of your next word.</p>
+<p>(This is why the monks seek teachings from the crystal, though they acknowledge its limitations.)</p>
+<p>What's more, you are able to pause and consider your next word in a way that the pumped model cannot. The light always flows through the crystal. It does not pool in eddies.</p>
+<p>And this is why LLMs are bad at math.</p>
+
+</div>
+</div>
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Countinng">Countinng<a class="anchor-link" href="#Countinng">&#182;</a></h1><p>Math is a highly recursive process. Take counting. If I ask you to count the &quot;n&quot;s in mayonnnnnnaise, you'll sit there and count one, two three, four... This is not something the model can do. It can represent a connection between the idea of &quot;counting 'n's&quot; and &quot;mayonnaise&quot; and &quot;twoness&quot;. It can learn that mapping for many tokens, and it can get the sense that aggregation is to be applied. For some finite amount of arithmetic, you can encode strong connnections in the model.</p>
+<p>The trouble is, arithmetic is infinite.</p>
+<p>LLMs don't contain any cycles. There's nothing in the model that runs until it's done. So there will always be a limit to how high it can count.</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 2 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;What&#39;s 19238 - 9180&quot;</span><span class="p">)</span>
+<span class="mi">19238</span> <span class="o">-</span> <span class="mi">9180</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>The result of 19238 - 9180 is 10058.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10058</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 2 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;What&#39;s 19223452452366338 - 9183453564320&quot;</span><span class="p">)</span>
+<span class="mi">19223452452366338</span> <span class="o">-</span> <span class="mi">9183453564320</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>The result of this subtraction is <code>10039998988042018</code>.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>19214268998802018</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There is a way to improve this. The model doesn't contain a cycle, but it is attached to a pump. It can store information by including it in the output. If we prompt the model to do this, it does much better:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 5 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Demonstrate how to subtract 19223452452366338 - 9183453564320.</span>
+
+<span class="s2">Show your work.</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<pre><code>            19223452452366338
+         -     9183453564320
+         _____________________
+            19214269098702018
+</code></pre>
+<p>Answer: <code>19214269098702018</code></p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This still doesn't help much with examples which require more arithmetic:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;What&#39;s 192 m/s in furlongs per fortnight? Show your work.&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>To convert from meters per second to furlongs per fortnight, we can use the following conversion factors:</p>
+<ul>
+<li>1 meter = 0.00497096954 furlongs (exactly)</li>
+<li>1 second = 0.00000009259 fortnights (exactly)</li>
+</ul>
+<p>Multiplying these conversion factors together, we get:</p>
+<p>1 m/s = (0.00497096954 furlongs) / (0.00000009259 fortnights)
+1 m/s = 53,879.6719 furlongs per fortnight (approximately)</p>
+<p>Therefore, 192 m/s is equivalent to approximately 10,391,050.57 furlongs per fortnight (192 * 53,879.6719).</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The process seems okay, but the answer is wrong. I'm not going to try and figure out where it went wrong. Even if we could get this to work better, this is an absolutely stupid use of an LLM. LLMs allow natural language querying of a textual database. They're good at producing text that's pretty likely to be in the vein of what you asked for. Numbers, not so much.</p>
+<p>Fortunately, there's a way to abstract over numbers with text, and it's called programming. LLMs do much better at programming than math:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 1 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;Write a python function to convert from m/s to furlongs per fortnight&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>Here's a Python function to convert from meters per second (m/s) to furlongs per fortnight:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">convert_to_furlongs_per_fortnight</span><span class="p">(</span><span class="n">meters_per_second</span><span class="p">):</span>
+   <span class="c1"># 1 meter = 0.000621371192 miles</span>
+   <span class="n">miles_per_second</span> <span class="o">=</span> <span class="n">meters_per_second</span> <span class="o">*</span> <span class="mf">0.000621371192</span>
+   <span class="c1"># 1 mile = 8 furlongs</span>
+   <span class="n">furlongs_per_second</span> <span class="o">=</span> <span class="n">miles_per_second</span> <span class="o">*</span> <span class="mi">8</span>
+   <span class="c1"># 1 fortnight = 14 days = 14 * 24 hours = 14 * 24 * 60 minutes = 20160 minutes</span>
+   <span class="n">furlongs_per_fortnight</span> <span class="o">=</span> <span class="n">furlongs_per_second</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">14</span>
+   <span class="k">return</span> <span class="n">furlongs_per_fortnight</span>
+</pre></div>
+<p>This function takes a single argument <code>meters_per_second</code>, which is the speed in meters per second that you want to convert to furlongs per fortnight. The function converts meters per second to miles per second, then to furlongs per second, and finally to furlongs per fortnight. The result is returned as a floating-point number.</p>
+<p>To use this function, simply call it with the desired speed in meters per second:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">convert_to_furlongs_per_fortnight</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="mf">106.98128294246822</span>
+</pre></div>
+<p>This tells us that 10 meters per second is equivalent to approximately 106.98 furlongs per fortnight.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 10 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">convert_to_furlongs_per_fortnight</span><span class="p">(</span><span class="n">meters_per_second</span><span class="p">):</span>
+   <span class="c1"># 1 meter = 0.000621371192 miles</span>
+   <span class="n">miles_per_second</span> <span class="o">=</span> <span class="n">meters_per_second</span> <span class="o">*</span> <span class="mf">0.000621371192</span>
+   <span class="c1"># 1 mile = 8 furlongs</span>
+   <span class="n">furlongs_per_second</span> <span class="o">=</span> <span class="n">miles_per_second</span> <span class="o">*</span> <span class="mi">8</span>
+   <span class="c1"># 1 fortnight = 14 days = 14 * 24 hours = 14 * 24 * 60 minutes = 20160 minutes</span>
+   <span class="n">furlongs_per_fortnight</span> <span class="o">=</span> <span class="n">furlongs_per_second</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">14</span>
+   <span class="k">return</span> <span class="n">furlongs_per_fortnight</span>
+
+<span class="n">convert_to_furlongs_per_fortnight</span><span class="p">(</span><span class="mi">192</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1154473.8721431552</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can pre-load the conversation with a system prompt restricting the model to do this in the general case:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 6 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;192 m/s in furlongs per fortnight&quot;</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You are a helpful assistant with absolutely lousy arithmetic skills.</span>
+
+<span class="s2">If the user asks you to perform arithmetic, instead output Python code which</span>
+<span class="s2">does what they asked for.</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>Sure, here's the Python code to convert 192 m/s to furlongs per fortnight:</p>
+<div class="highlight"><pre><span></span><span class="n">speed_meters_per_second</span> <span class="o">=</span> <span class="mi">192</span>
+<span class="c1"># 1 meter = 0.000621371192 miles</span>
+<span class="n">speed_miles_per_second</span> <span class="o">=</span> <span class="n">speed_meters_per_second</span> <span class="o">*</span> <span class="mf">0.000621371192</span>
+<span class="c1"># 1 mile = 8 furlongs</span>
+<span class="n">speed_furlongs_per_second</span> <span class="o">=</span> <span class="n">speed_miles_per_second</span> <span class="o">*</span> <span class="mi">8</span>
+<span class="c1"># 1 fortnight = 14 days = 14 * 24 hours = 14 * 24 * 60 minutes = 14 * 24 * 60 * 60 seconds</span>
+<span class="n">seconds_per_fortnight</span> <span class="o">=</span> <span class="mi">14</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>
+<span class="n">speed_furlongs_per_fortnight</span> <span class="o">=</span> <span class="n">speed_furlongs_per_second</span> <span class="o">*</span> <span class="n">seconds_per_fortnight</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">speed_furlongs_per_fortnight</span><span class="p">)</span>
+</pre></div>
+<p>This will output:</p>
+<pre><code>279868.47638128
+</code></pre>
+<p>Therefore, 192 m/s is approximately equal to 279868.47638128 furlongs per fortnight.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 6 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;192 m/s in furlongs per fortnight&quot;</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You are a helpful assistant with absolutely lousy arithmetic skills.</span>
+
+<span class="s2">If the user asks you to perform arithmetic, instead output Python code which</span>
+<span class="s2">does what they asked for.</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>Sure, here's the Python code to convert 192 m/s to furlongs per fortnight:</p>
+<div class="highlight"><pre><span></span><span class="n">speed_meters_per_second</span> <span class="o">=</span> <span class="mi">192</span>
+<span class="c1"># 1 meter = 0.000621371192 miles</span>
+<span class="n">speed_miles_per_second</span> <span class="o">=</span> <span class="n">speed_meters_per_second</span> <span class="o">*</span> <span class="mf">0.000621371192</span>
+<span class="c1"># 1 mile = 8 furlongs</span>
+<span class="n">speed_furlongs_per_second</span> <span class="o">=</span> <span class="n">speed_miles_per_second</span> <span class="o">*</span> <span class="mi">8</span>
+<span class="c1"># 1 fortnight = 14 days = 14 * 24 hours = 14 * 24 * 60 minutes = 14 * 24 * 60 * 60 seconds</span>
+<span class="n">seconds_per_fortnight</span> <span class="o">=</span> <span class="mi">14</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>
+<span class="n">speed_furlongs_per_fortnight</span> <span class="o">=</span> <span class="n">speed_furlongs_per_second</span> <span class="o">*</span> <span class="n">seconds_per_fortnight</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">speed_furlongs_per_fortnight</span><span class="p">)</span>
+</pre></div>
+<p>This will output:</p>
+<pre><code>279868.47638128
+</code></pre>
+<p>Therefore, 192 m/s is approximately equal to 279868.47638128 furlongs per fortnight.</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 10 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">speed_meters_per_second</span> <span class="o">=</span> <span class="mi">192</span>
+<span class="c1"># 1 meter = 0.000621371192 miles</span>
+<span class="n">speed_miles_per_second</span> <span class="o">=</span> <span class="n">speed_meters_per_second</span> <span class="o">*</span> <span class="mf">0.000621371192</span>
+<span class="c1"># 1 mile = 8 furlongs</span>
+<span class="n">speed_furlongs_per_second</span> <span class="o">=</span> <span class="n">speed_miles_per_second</span> <span class="o">*</span> <span class="mi">8</span>
+<span class="c1"># 1 fortnight = 14 days = 14 * 24 hours = 14 * 24 * 60 minutes = 14 * 24 * 60 * 60 seconds</span>
+<span class="n">seconds_per_fortnight</span> <span class="o">=</span> <span class="mi">14</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>
+<span class="n">speed_furlongs_per_second</span> <span class="o">*</span> <span class="n">seconds_per_fortnight</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">speed_furlongs_per_fortnight</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1154473.8721431552
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can also use it to print a warning:</p>
+
+</div>
+</div>
+</div>
+<div  class=" cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt nonempty">
+</div>
+<div class="inner_cell">
+    <div class="crease">( show 10 code lines )</div>
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;192 m/s in furlongs per fortnight&quot;</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You are a helpful assistant with absolutely lousy arithmetic skills.</span>
+
+<span class="s2">If the user asks you to perform arithmetic, you MUST print a warning</span>
+<span class="s2">before you produce any more output. The warning you must print is:</span>
+
+<span class="s2">  WARNING: I AM BAD AT MATH</span>
+
+<span class="s2">Then you must try your best.</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<blockquote>
+<p>WARNING: I AM BAD AT MATH</p>
+<p>Okay, let's try to figure this out.</p>
+<p>1 furlong = 201.168 meters
+1 fortnight = 14 days = 336 hours</p>
+<p>So,</p>
+<p>192 m/s = (192/201.168) furlongs/s
+= (192/201.168) * 3600 furlongs/hour (since there are 3600 seconds in an hour)
+= (192/201.168) * 3600 * 24 * 14 furlongs/fortnight (since there are 24 hours in a day and 14 days in a fortnight)</p>
+<p>Simplifying the calculation:</p>
+<p>(192/201.168) * 3600 * 24 * 14 furlongs/fortnight 
+= (0.954158)* 3600 * 24 * 14 furlongs/fortnight 
+= 720811.6368 furlongs/fortnight</p>
+<p>Therefore, 192 m/s is approximately equal to 720811.6368 furlongs per fortnight. I hope that helps!</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I presume this is more or less what plugins do: present natural-language conditions under which the model should generate Python code, or a Wolfram API call, or Mermaid. Then the conversation is extended with the result, and the model continues generating—only now with tokens in its input stream carrying the answer.</p>
+
+</div>
+</div>
+</div>
+<div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="An-intricate-mirror">An intricate mirror<a class="anchor-link" href="#An-intricate-mirror">&#182;</a></h1><p>LLMs are incredible. I confess to being pretty blown away by GPT-3.5 and of course GPT-4 even moreso. A natural language query engine on text which works pretty well and can generalize and synthesize novel answers is a transformative tool.</p>
+<p>Looking at the <a href="https://dugas.ch/artificial_curiosity/GPT_architecture.html">architecture</a> of these models, I'm honestly even more taken aback: they are remarkably simple for what they do. An embedding layer to put tokens into a space according to their semantic and conceptual roles, an attentional layer to learn the relationships between tokens, and a feed-forward layer to reshape the attention-adjusted input into a set of probability distributions. Those are the three trainable components.</p>
+<p>Absent is any kind of explicit <em>encoding</em> or <em>reduce</em> step on the text stream as a whole, a common pattern in machine learning systems which I naively expected to see here.</p>
+<p>The idea is you train two functions: one to encode the input into some smaller form, another to decode it back to the original (or into French). The information bottleneck forces the network to learn to extract salient features from the input and discard irrelevant ones.</p>
+<p>Some extraction of concepts is surely going on inside GPT. But none of it is forced architecturally. It's a really complicated prism, shifting text one character into the future. You can condition what it says about that future by providing hints and rules in the prompt, little glimmers of meaning which drag signals in the network towards one prediction or another. Ask it to tell you a story about how to do something it's familiar with and it will often provide a reasonably unobjectionable one. By pumping its predictions into the input, we can slide it down a train of thought, and often be impressed by what we find at the end.</p>
+<p>Models like this are <em>great</em> at generating plausible-sounding text which broadly agrees with what's already been written. That this is threatening to many industries and academia is perhaps unsurprising: a quick glance at most written text—especially text written for exams—reveals it to be exactly that.</p>
+<p>But don't ask them to think through implications and evaluate correctness, a task they're bound to eventually fail at. And don't ask them to count.</p>
+
+</div>
+</div>
+</div>
+    </div>
+  </div>
+</body>
+
+
+
+
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"24274f1ff5a94b6d933971bf52f61c98": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_64a3f4dd3344463797af774d78aa08af", "IPY_MODEL_cfef660b7dfd413d85c89a88cc17917e", "IPY_MODEL_96e8904ddecd4161a286c150bb608c5a"], "layout": "IPY_MODEL_b7e488f70a9e402c8a6c4a3711da58df"}}, "64a3f4dd3344463797af774d78aa08af": {"model_module": "@jupyter-widgets/controls", "model_name": "ButtonModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "Clear cache", "disabled": false, "icon": "", "layout": "IPY_MODEL_4e460b2125b64c6fbeb8c9c102309e2f", "style": "IPY_MODEL_9d460e8ec237472cb274def4877b7d5e", "tooltip": ""}}, "cfef660b7dfd413d85c89a88cc17917e": {"model_module": "@jupyter-widgets/controls", "model_name": "ButtonModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "Show cache contents", "disabled": false, "icon": "", "layout": "IPY_MODEL_49b84c1cf9074e41b695a6accc936507", "style": "IPY_MODEL_9e486ce2ed76480484a313e5e9a40793", "tooltip": ""}}, "96e8904ddecd4161a286c150bb608c5a": {"model_module": "@jupyter-widgets/controls", "model_name": "ButtonModel", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ButtonView", "button_style": "", "description": "Hide cache contents", "disabled": false, "icon": "", "layout": "IPY_MODEL_a0fe9d8148e2453c9c2fd5ae3280a3cb", "style": "IPY_MODEL_c3c1b1c0b6e24323bca4fad9d313e073", "tooltip": ""}}, "b7e488f70a9e402c8a6c4a3711da58df": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "4e460b2125b64c6fbeb8c9c102309e2f": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9d460e8ec237472cb274def4877b7d5e": {"model_module": "@jupyter-widgets/controls", "model_name": "ButtonStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": null, "font_weight": ""}}, "49b84c1cf9074e41b695a6accc936507": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9e486ce2ed76480484a313e5e9a40793": {"model_module": "@jupyter-widgets/controls", "model_name": "ButtonStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": null, "font_weight": ""}}, "a0fe9d8148e2453c9c2fd5ae3280a3cb": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c3c1b1c0b6e24323bca4fad9d313e073": {"model_module": "@jupyter-widgets/controls", "model_name": "ButtonStyleModel", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ButtonStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "button_color": null, "font_weight": ""}}, "c77cf508fa924c5a80d0d112540b5758": {"model_module": "@jupyter-widgets/output", "model_name": "OutputModel", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_3985c2fd69a94cc199890b6d0a57918f", "msg_id": "", "outputs": []}}, "3985c2fd69a94cc199890b6d0a57918f": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}
+</script>
+
+
+</html>
