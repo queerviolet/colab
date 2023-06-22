@@ -18,7 +18,8 @@ html {
   -webkit-text-size-adjust: 100%;
 
   --text-color: black;
-  --shadow-color: rgba(127, 127, 127, 0.5)
+  --shadow-color: rgba(127, 127, 127, 0.5);
+  --page-background-color: #ecebe3;
 }
 body {
   margin: 0;
@@ -13005,7 +13006,7 @@ ul.typeahead-list  > li > a.pull-right {
 }
 
 #tips {
-  background-image: radial-gradient(circle at 100% 0, #15022b,transparent, transparent), url("avatar.png"), linear-gradient(#a0e3f580, #90efffd4, white, #a285af);
+  background-image: radial-gradient(circle at 100% 0, var(--page-background-color), transparent, transparent), url("avatar.png"), linear-gradient(#a0e3f580, #90efffd4, white, #a285af);
   background-position: top right, top left, top left;
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-size: 100% 150%, contain;
@@ -13017,7 +13018,7 @@ ul.typeahead-list  > li > a.pull-right {
   text-align: right;
   padding: 0;
   color: #eef;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 #tips a {
@@ -13030,7 +13031,6 @@ ul.typeahead-list  > li > a.pull-right {
 }
 
 #tips p {
-  margin-left: 150px;
   padding: 0.5em;
 }
 

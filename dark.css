@@ -1,6 +1,7 @@
 html {
   --text-color: #e4d8a8;
-  --shadow-color: rgba(0, 0, 0, 0.5)
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --page-background-color: #15022b;
 }
 
 body {
