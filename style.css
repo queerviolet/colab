@@ -13003,3 +13003,42 @@ ul.typeahead-list  > li > a.pull-right {
   transform: scaleY(1);
   padding: 0.25em;
 }
+
+#tips {
+  background-image: radial-gradient(circle at 100% 0, #15022b,transparent, transparent), url("avatar.png"), linear-gradient(#a0e3f580, #90efffd4, white, #a285af);
+  background-position: top right, top left, top left;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: 100% 150%, contain;
+
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  margin-top: 2em;
+  font-family: var(--ui-font-family);
+  text-align: right;
+  padding: 0;
+  color: #eef;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#tips a {
+  color: white;
+  font-weight: bold;
+}
+
+#tips h2 {
+  padding: 0.5em;
+}
+
+#tips p {
+  margin-left: 150px;
+  padding: 0.5em;
+}
+
+#tips .tip-button {
+  display: inline-block;
+  border-radius: 0.5em;
+  background: deeppink;
+  padding: 0.5em;
+  color: white;
+  margin: 1em;
+}
