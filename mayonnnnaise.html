@@ -187,7 +187,8 @@ div#notebook {
 <div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="mayonnnnaise">mayonnnnaise<a class="anchor-link" href="#mayonnnnaise">&#182;</a></h1><center><a href=https://twitter.com/js_thrill/status/1662266752091160577><img width=500 src=https://raw.githubusercontent.com/queerviolet/colab/main/mayonnnnaise-tweet.png></a></center>
+<h1 id="mayonnnnaise">mayonnnnaise<a class="anchor-link" href="#mayonnnnaise">&#182;</a></h1><center><img width=500 src=https://raw.githubusercontent.com/queerviolet/colab/main/mayonnnnaise-tweet.png>
+<p><cite>— <a href=https://twitter.com/js_thrill/status/1662266752091160577>@js_thrill on twitter</a></cite></center></p>
 <p>The model sure looks silly here. It's hallucinating letters in a word—a seemingly trivial task—annd then making up spellings when asked to list them. It sounds perfectly confident because that's how it's trained. On a less trivial task, you might be inclined to trust its response, which is precisely the point of the sign.</p>
 <p>(As an aside, the 'n' key on my keyboard is sticking, sometimes producing multiple 'n's. I'm just goinng to leave them that way.)</p>
 <p>I looked into this hallucination and ended up taking a little journey through how LLMs are built.</p>
@@ -199,7 +200,7 @@ div#notebook {
 <div  class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Running-this-notebook">Running this notebook<a class="anchor-link" href="#Running-this-notebook">&#182;</a></h2><p>This document is available as a <a href="https://colab.research.google.com/drive/1PZ_IrUQh1wIusBhzeNBpI2HuI_G_1BsB">colab notebook</a>.</p>
+<h2 id="Running-this-notebook">Running this notebook<a class="anchor-link" href="#Running-this-notebook">&#182;</a></h2><p>This document is available as a <a href="https://colab.research.google.com/drive/1UpWKl9X_bEFuKzXcJdubFvo-oE0T1WaG">colab notebook</a>.</p>
 <p>To run the examples in this notebook yourself, you'll need an <a href="https://platform.openai.com/account/api-keys">OpenAI API key</a>.</p>
 
 </div>
@@ -1497,64 +1498,6 @@ In general the question is considered controversial/artificial, as it's metaphor
 
 </div>
 </div>
-</div>
-<div  class=" cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt nonempty">
-</div>
-<div class="inner_cell">
-    <div class="crease">( show 6 code lines )</div>
-    <div class="input_area">
-<div class=" highlight hl-python"><pre><span></span><span class="n">ask</span><span class="p">(</span><span class="s2">&quot;192 m/s in furlongs per fortnight&quot;</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">You are a helpful assistant with absolutely lousy arithmetic skills.</span>
-
-<span class="s2">If the user asks you to perform arithmetic, instead output Python code which</span>
-<span class="s2">does what they asked for.</span>
-<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<blockquote>
-<p>Sure, here's the Python code to convert 192 m/s to furlongs per fortnight:</p>
-<div class="highlight"><pre><span></span><span class="n">speed_meters_per_second</span> <span class="o">=</span> <span class="mi">192</span>
-<span class="c1"># 1 meter = 0.000621371192 miles</span>
-<span class="n">speed_miles_per_second</span> <span class="o">=</span> <span class="n">speed_meters_per_second</span> <span class="o">*</span> <span class="mf">0.000621371192</span>
-<span class="c1"># 1 mile = 8 furlongs</span>
-<span class="n">speed_furlongs_per_second</span> <span class="o">=</span> <span class="n">speed_miles_per_second</span> <span class="o">*</span> <span class="mi">8</span>
-<span class="c1"># 1 fortnight = 14 days = 14 * 24 hours = 14 * 24 * 60 minutes = 14 * 24 * 60 * 60 seconds</span>
-<span class="n">seconds_per_fortnight</span> <span class="o">=</span> <span class="mi">14</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>
-<span class="n">speed_furlongs_per_fortnight</span> <span class="o">=</span> <span class="n">speed_furlongs_per_second</span> <span class="o">*</span> <span class="n">seconds_per_fortnight</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">speed_furlongs_per_fortnight</span><span class="p">)</span>
-</pre></div>
-<p>This will output:</p>
-<pre><code>279868.47638128
-</code></pre>
-<p>Therefore, 192 m/s is approximately equal to 279868.47638128 furlongs per fortnight.</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div  class=" cell border-box-sizing code_cell rendered">
 <div class="input">

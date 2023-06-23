@@ -24,6 +24,10 @@ html {
 body {
   margin: 0;
 }
+cite {
+  display: block;
+  text-align: center;
+}
 
 article,
 aside,
@@ -1103,7 +1107,8 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  color: deeppink;
+  font-weight: bold;
   text-decoration: none;
 }
 a:hover,
@@ -11106,12 +11111,6 @@ div.output_unrecognized a:hover {
   font-weight: bold;
 }
 .rendered_html u {
-  text-decoration: underline;
-}
-.rendered_html :link {
-  text-decoration: underline;
-}
-.rendered_html :visited {
   text-decoration: underline;
 }
 .rendered_html h1 {
